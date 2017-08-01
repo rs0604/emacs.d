@@ -22,7 +22,7 @@
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
 (el-get-bundle anything)
-(el-get-bundle magit)
+;;(el-get-bundle magit)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
 
@@ -67,9 +67,11 @@
                     :height 90)
 
 ;; 日本語フォントの設定
- (set-fontset-font
-  nil 'japanese-jisx0208
+(set-fontset-font (frame-parameter  nil 'font)
+	'japanese-jisx0208
   (font-spec :family "Hannari Mincho"))
+(add-to-list 'face-font-rescale-alist
+	     '(".*Hannari Mincho.*" . 1.2))
 
 ;; 左右２分割したとき、下の行が折り返されないようにフォントサイズを調整
 ;;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -144,7 +146,6 @@
 ;; 正規表現置換えをわかりやすく
 (bind-key "M-%" 'vr/query-replace)
 
-;
 
 ;; ------------------------------------------- anything
 ;; C-j をanything関連のプレフィックスにする
@@ -158,3 +159,15 @@
   (bind-key "C-j C-b" 'anything-mini)
   )
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (bind-key))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
