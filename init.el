@@ -69,9 +69,10 @@
 ;; 日本語フォントの設定
 (set-fontset-font (frame-parameter  nil 'font)
 	'japanese-jisx0208
-  (font-spec :family "Hannari Mincho"))
-(add-to-list 'face-font-rescale-alist
-	     '(".*Hannari Mincho.*" . 1.2))
+	(font-spec :family "はんなり明朝"
+		   :size 14))
+
+
 
 ;; 左右２分割したとき、下の行が折り返されないようにフォントサイズを調整
 ;;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
