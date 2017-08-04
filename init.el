@@ -1,14 +1,27 @@
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+;; ---------------------------------------- ロードパスの追加
+;; load-pathの追加関数
+(defun add-to-load-path (&rest paths)
+  (let (path)
+    (dolist (path paths paths)
+      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
+        (add-to-list 'load-path default-directory)
+        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+            (normal-top-level-add-subdirs-to-load-path))))))
+
+;; load-pathに追加するフォルダ
+(add-to-load-path "elisp")
+
+
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-;; el-get
+;; ---------------------------------------- el-get
 (add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
@@ -17,7 +30,8 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
-;; el-get packages
+
+;; ---------------------------------------- el-get パッケージ自動インストール
 (el-get-bundle auto-complete)
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
@@ -67,18 +81,23 @@
                     :height 90)
 
 ;; 日本語フォントの設定
-(set-fontset-font (frame-parameter  nil 'font)
-	'japanese-jisx0208
-  (font-spec :family "Hannari Mincho"))
-(add-to-list 'face-font-rescale-alist
-	     '(".*Hannari Mincho.*" . 1.2))
+(set-fontset-font nil 'japanese-jisx0208
+		  (font-spec :family "はんなり明朝"
+			     :size 14
+			     ))
+;;(add-to-list 'face-font-rescale-alist
+;;	     '(".*Hannari Mincho.*" . 1.4))
 
 ;; 左右２分割したとき、下の行が折り返されないようにフォントサイズを調整
 ;;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 ;; テーマのロード
 (when window-system
   (load-theme 'misterioso t)
+  )
+
+;; GUI時、背景を透過に設定
+(when window-system
+  (set-frame-parameter nil 'alpha 85)
   )
 ;; GUI時、現在行に色をつける
 (when window-system
@@ -146,6 +165,17 @@
 ;; 正規表現置換えをわかりやすく
 (bind-key "M-%" 'vr/query-replace)
 
+;; ------------------------------------------- Org Mode
+;; C-o をメモ関連のプレフィックスにする
+(global-unset-key "\C-o")
+
+;; ------------------------------------------- Howm
+(use-package howm
+  :config
+  (bind-key "C-o C-o" 'howm-menu)
+  ;; 1日1ファイルにする
+  (setq howm-file-name-format "%Y/%m/%Y_%m_%d.txt")
+  )
 
 ;; ------------------------------------------- anything
 ;; C-j をanything関連のプレフィックスにする
