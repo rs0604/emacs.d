@@ -3,3 +3,6 @@ auto-save-list
 el-get
 !./el-get/yasnippet/snippets/
 elpa
+elisp
+bookmarks
+kkcrc
