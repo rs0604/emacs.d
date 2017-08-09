@@ -39,7 +39,8 @@
 ;;(el-get-bundle magit)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
-
+(el-get-bundle color-moccur)
+(el-get-bundle moccur-edit)
 ;; ---------------------------------------- use-package
 ;; use-package がなければ、ロードしない
 (unless (require 'use-package nil t)
@@ -205,7 +206,7 @@
   :config
   (setq anything-enable-shortcuts 'prefix)
   (bind-key "@" 'anything-select-with-prefix-shortcut anything-map)
-  (bind-key "C-j C-b" 'anything-mini)
+  (bind-key "C-j C-j" 'anything)
   )
 
 (custom-set-variables
