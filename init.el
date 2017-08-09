@@ -197,6 +197,12 @@
   (setq howm-file-name-format "%Y/%m/%Y_%m_%d.org")
 
   )
+;; ------------------------------------------- color-moccur
+(use-package color-moccur
+  :config
+  ;; 複数の検索語や特定のフェイスのみマッチ等の機能を有効にする
+  (setq moccur-split-word t)
+  )
 
 ;; ------------------------------------------- anything
 ;; C-j をanything関連のプレフィックスにする
