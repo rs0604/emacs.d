@@ -42,6 +42,9 @@
 (el-get-bundle diminish)
 (el-get-bundle color-moccur)
 (el-get-bundle moccur-edit)
+(el-get-bundle ag)
+(el-get-bundle wgrep)
+
 ;; ---------------------------------------- use-package
 ;; use-package がなければ、ロードしない
 (unless (require 'use-package nil t)
@@ -202,6 +205,16 @@
   :config
   ;; 複数の検索語や特定のフェイスのみマッチ等の機能を有効にする
   (setq moccur-split-word t)
+  )
+
+;; ------------------------------------------- ag
+(use-package ag
+  :config
+  (custom-set-variables
+   '(ag-highlight-search t) ; 検索結果の中の検索語をハイライトする
+   '(ag-reuse-window 'nil)  ; 現在のウィンドウを検索結果表示に使う
+   '(ag-reuse-buffers 'nil) ; 現在のバッファを検索結果表示に使う
+   )
   )
 
 ;; ------------------------------------------- anything
