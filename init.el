@@ -36,6 +36,7 @@
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
 (el-get-bundle anything)
+(el-get-bundle anything-config)
 ;;(el-get-bundle magit)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
