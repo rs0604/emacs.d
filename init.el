@@ -170,11 +170,30 @@
 (global-unset-key "\C-o")
 
 ;; ------------------------------------------- Howm
+;; C-cC-c で保存してバッファをキルする
+(defun my-save-and-kill-buffer ()
+  (interactive)
+  (when (and
+         (buffer-file-name)
+         (string-match "\\.org"
+                       (buffer-file-name)))
+    (save-buffer)
+    (kill-buffer nil))
+)
+
+;(eval-after-load "howm"
+;  '(progn
+;     (define-key howm-mode-map
+;       "\C-c\C-c" 'my-save-and-kill-buffer))
+;  )
+
 (use-package howm
   :config
   (bind-key "C-o C-o" 'howm-menu)
-  ;; 1日1ファイルにする
-  (setq howm-file-name-format "%Y/%m/%Y_%m_%d.txt")
+  (bind-key "C-c C-c" 'my-save-and-kill-buffer howm-mode-map)
+  ;; 1日1ファイルにする(org-modeと連携)
+  (setq howm-file-name-format "%Y/%m/%Y_%m_%d.org")
+
   )
 
 ;; ------------------------------------------- anything
