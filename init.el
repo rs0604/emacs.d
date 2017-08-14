@@ -59,7 +59,9 @@
 (menu-bar-mode 0)
 
 ;; スクロールバーを削除
-(scroll-bar-mode 0)
+(when window-system
+  (scroll-bar-mode 0)
+  )
 
 ;; ファイルサイズの表示
 (size-indication-mode t)
@@ -68,22 +70,23 @@
 (show-paren-mode 1)
 
 ;; フォントの設定
-(set-face-attribute 'default nil
-                     :family "Courier 10 Pitch"
-		     :height 90)
+(when window-system
+  (set-face-attribute 'default nil
+		      :family "Courier 10 Pitch"
+		      :height 90)
 
-;; 日本語フォントの設定
-(when (eq system-type 'gnu/linux)
-  (set-fontset-font (frame-parameter  nil 'font)
-		    'japanese-jisx0208
-		    (font-spec :family "serif"
-			       :size 14)))
-(when (eq system-type 'windows-nt)
-  (set-fontset-font (frame-parameter  nil 'font)
-		    'japanese-jisx0208
-		    (font-spec :family "Meiryo"
-			       :size 14)))
-
+  ;; 日本語フォントの設定
+  (when (eq system-type 'gnu/linux)
+    (set-fontset-font (frame-parameter  nil 'font)
+		      'japanese-jisx0208
+		      (font-spec :family "serif"
+				 :size 14)))
+  (when (eq system-type 'windows-nt)
+    (set-fontset-font (frame-parameter  nil 'font)
+		      'japanese-jisx0208
+		      (font-spec :family "Meiryo"
+				 :size 14)))
+  )
 
 ;; 左右２分割したとき、下の行が折り返しなし&行末が揃うように調整する
 ;; AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM  NN  OO  PP  QQ  RR  SS  TT
