@@ -25,7 +25,7 @@
 ;;(el-get-bundle magit)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
-
+(el-get-bundle lua-mode)
 ;; ---------------------------------------- use-package
 ;; use-package がなければ、ロードしない
 (unless (require 'use-package nil t)
