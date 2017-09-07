@@ -63,13 +63,13 @@
 
 ;; フォントの設定
 (set-face-attribute 'default nil
-                     :family "Verily Serif Mono"
+                     :family "Courier 10 Pitch"
                     :height 90)
 
 ;; 日本語フォントの設定
 (set-fontset-font (frame-parameter  nil 'font)
 	'japanese-jisx0208
-	(font-spec :family "はんなり明朝"
+	(font-spec :family "serif"
 		   :size 14))
 
 
@@ -146,6 +146,9 @@
 
 ;; 正規表現置換えをわかりやすく
 (bind-key "M-%" 'vr/query-replace)
+
+;; F7キーでホワイトスペース表示ON/OFF
+(bind-key "<f7>" 'whitespace-mode)
 
 
 ;; ------------------------------------------- anything
