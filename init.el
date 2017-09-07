@@ -26,6 +26,7 @@
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
 (el-get-bundle lua-mode)
+(el-get-bundle neotree)
 ;; ---------------------------------------- use-package
 ;; use-package がなければ、ロードしない
 (unless (require 'use-package nil t)
@@ -150,6 +151,10 @@
 ;; F7キーでホワイトスペース表示ON/OFF
 (bind-key "<f7>" 'whitespace-mode)
 
+;; ------------------------------------------- neo-tree
+(use-package neotree
+  :config
+  (bind-key [f8] 'neotree-toggle))
 
 ;; ------------------------------------------- anything
 ;; C-j をanything関連のプレフィックスにする
