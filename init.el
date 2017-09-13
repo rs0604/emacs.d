@@ -27,6 +27,7 @@
 (el-get-bundle diminish)
 (el-get-bundle lua-mode)
 (el-get-bundle neotree)
+(el-get-bundle visual-regexp)
 ;; ---------------------------------------- use-package
 ;; use-package がなければ、ロードしない
 (unless (require 'use-package nil t)
