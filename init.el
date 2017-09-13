@@ -68,10 +68,10 @@
                     :height 90)
 
 ;; 日本語フォントの設定
-(set-fontset-font (frame-parameter  nil 'font)
-	'japanese-jisx0208
-	(font-spec :family "serif"
-		   :size 14))
+;;(set-fontset-font (frame-parameter  nil 'font)
+;;	'japanese-jisx0208
+;;	(font-spec :family "serif"
+;;		   :size 14))
 
 
 
@@ -148,6 +148,13 @@
 ;; 正規表現置換えをわかりやすく
 (bind-key "M-%" 'vr/query-replace)
 
+;; F6キーで日付挿入
+(defun insert-current-time()
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d %H:%M:%S" (current-time))))
+(bind-key "<f6>" 'insert-current-time)
+
+(define-key global-map "\C-cd" `insert-current-time)
 ;; F7キーでホワイトスペース表示ON/OFF
 (bind-key "<f7>" 'whitespace-mode)
 
