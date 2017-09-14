@@ -89,6 +89,15 @@
 ;; AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM  NN  OO  PP  QQ  RR  SS  TT
 ;; あ　い　う　え　お　か　き　く　け　こ  さ　し　す　せ　そ　た　ち　つ　て　と
 
+;; フランス語のための設定
+;; アクサン記号入力モード
+(defun fr ()
+  (interactive)
+  (set-input-method 'latin-1-prefix))
+
+;; F9キーに割当て。切りたければC-/で。
+(bind-key "<f9>" 'fr)
+
 ;; テーマのロード
 (when window-system
   (load-theme 'misterioso t)
