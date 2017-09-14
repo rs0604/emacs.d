@@ -66,18 +66,24 @@
 ;; フォントの設定
 (set-face-attribute 'default nil
                      :family "Courier 10 Pitch"
-                    :height 90)
+		     :height 90)
 
 ;; 日本語フォントの設定
-;;(set-fontset-font (frame-parameter  nil 'font)
-;;	'japanese-jisx0208
-;;	(font-spec :family "serif"
-;;		   :size 14))
+(when (eq system-type 'gnu/linux)
+  (set-fontset-font (frame-parameter  nil 'font)
+		    'japanese-jisx0208
+		    (font-spec :family "serif"
+			       :size 14)))
+(when (eq system-type 'windows-nt)
+  (set-fontset-font (frame-parameter  nil 'font)
+		    'japanese-jisx0208
+		    (font-spec :family "Meiryo"
+			       :size 14)))
 
 
-
-;; 左右２分割したとき、下の行が折り返されないようにフォントサイズを調整
-;;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+;; 左右２分割したとき、下の行が折り返しなし&行末が揃うように調整する
+;; AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM  NN  OO  PP  QQ  RR  SS  TT
+;; あ　い　う　え　お　か　き　く　け　こ  さ　し　す　せ　そ　た　ち　つ　て　と
 
 ;; テーマのロード
 (when window-system
