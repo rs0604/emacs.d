@@ -22,12 +22,16 @@
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
 (el-get-bundle anything)
-;;(el-get-bundle magit)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
 (el-get-bundle lua-mode)
 (el-get-bundle neotree)
 (el-get-bundle visual-regexp)
+;; linuxでのみ利用する拡張機能
+(when (eq system-type 'gnu/linux)
+  (el-get-bundle magit)
+  )
+
 ;; ---------------------------------------- use-package
 ;; use-package がなければ、ロードしない
 (unless (require 'use-package nil t)
