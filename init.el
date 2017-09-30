@@ -22,7 +22,7 @@
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
 (el-get-bundle anything)
-(el-get-bundle bind-key)
+;;(el-get-bundle bind-key) el-getからパッケージがないと怒られる。非推奨になったせい？
 (el-get-bundle diminish)
 (el-get-bundle lua-mode)
 (el-get-bundle neotree)
