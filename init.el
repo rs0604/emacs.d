@@ -53,7 +53,9 @@
 (global-linum-mode t)
 
 ;;ツールバーを削除
-(tool-bar-mode 0)
+(when window-system
+  (tool-bar-mode 0)
+  )
 
 ;;メニューバーを削除
 (menu-bar-mode 0)
