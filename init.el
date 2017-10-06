@@ -195,7 +195,18 @@
   (bind-key "<tab>" 'helm-execute-persistent-action helm-map)
   (bind-key "C-i" 'helm-execute-persistent-action helm-map)
   (bind-key "C-z" 'helm-select-action helm-map)
+  (bind-key "C-u C-u C-b" 'helm-mini)
+  (bind-key "C-u C-u o" 'helm-occur)
+  
+  ;; デフォルトキーバインドの置換え
+  (bind-key "M-x" 'helm-M-x)
+  (setq helm-M-x-fuzzy-match t)
 
+  (bind-key "M-y" 'helm-show-kill-ring)
+
+  (bind-key "C-x C-f" 'helm-find-files)
+  
+  
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
   (helm-mode 1)
