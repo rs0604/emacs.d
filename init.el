@@ -21,7 +21,7 @@
 (el-get-bundle auto-complete)
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
-(el-get-bundle anything)
+(el-get-bundle helm)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
 (el-get-bundle lua-mode)
@@ -186,17 +186,21 @@
   :config
   (bind-key [f8] 'neotree-toggle))
 
-;; ------------------------------------------- anything
-;; C-j をanything関連のプレフィックスにする
-(global-unset-key "\C-j")
-(use-package anything-startup)
+;; ------------------------------------------- helm
+(use-package helm)
 
-(use-package anything-config
+(use-package helm-config
   :config
-  (setq anything-enable-shortcuts 'prefix)
-  (bind-key "@" 'anything-select-with-prefix-shortcut anything-map)
-  (bind-key "C-j C-b" 'anything-mini)
+  (bind-key "C-u C-u" 'helm-command-prefix)
+  (bind-key "<tab>" 'helm-execute-persistent-action helm-map)
+  (bind-key "C-i" 'helm-execute-persistent-action helm-map)
+  (bind-key "C-z" 'helm-select-action helm-map)
+
+  (when (executable-find "curl")
+    (setq helm-google-suggest-use-curl-p t))
+  (helm-mode 1)
   )
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
