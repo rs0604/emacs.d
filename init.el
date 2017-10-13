@@ -27,6 +27,7 @@
 (el-get-bundle lua-mode)
 (el-get-bundle neotree)
 (el-get-bundle visual-regexp)
+(el-get-bundle git-gutter)
 ;; linuxでのみ利用する拡張機能
 (when (eq system-type 'gnu/linux)
   (el-get-bundle magit)
@@ -50,7 +51,7 @@
 ;; 行番号・桁番号を表示する
 (line-number-mode 1)
 (column-number-mode 1)
-(global-linum-mode t)
+;;(global-linum-mode t)
 
 ;;ツールバーを削除
 (when window-system
@@ -214,7 +215,12 @@
   (helm-mode 1)
   )
 
-
+;; ---------------------------------------- git-gutter-mode
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode t)
+  )
+  
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
