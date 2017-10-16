@@ -22,6 +22,7 @@
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
 (el-get-bundle helm)
+(el-get-bundle helm-git-grep)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
 (el-get-bundle lua-mode)
@@ -216,10 +217,10 @@
 ;; ---------------------------------------- magit
 (use-package magit
   :config
-  (when (eq system-type 'windows-nt)
-    (setq magit-git-executable "C:/Program Files/Git/bin/git.exe")
-    (add-to-list 'exec-path "C:/Program Files/Git/bin")
-    )
+  ;;(when (eq system-type 'windows-nt)
+  ;;  (setq magit-git-executable "C:/Program Files/Git/bin/git.exe")
+  ;;  (add-to-list 'exec-path "C:/Program Files/Git/bin")
+  ;;  )
   (bind-key "C-u C-c" 'magit-status)
   )
 ;; ---------------------------------------- git-gutter-mode
