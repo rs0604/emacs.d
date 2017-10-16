@@ -28,10 +28,9 @@
 (el-get-bundle neotree)
 (el-get-bundle visual-regexp)
 (el-get-bundle git-gutter)
-;; linuxでのみ利用する拡張機能
-(when (eq system-type 'gnu/linux)
-  (el-get-bundle magit)
-  )
+;; 手動で入れる（暫定）
+;;(el-get-bundle magit)
+
 
 ;; ---------------------------------------- use-package
 ;; use-package がなければ、ロードしない
@@ -214,7 +213,15 @@
     (setq helm-google-suggest-use-curl-p t))
   (helm-mode 1)
   )
-
+;; ---------------------------------------- magit
+(use-package magit
+  :config
+  (when (eq system-type 'windows-nt)
+    (setq magit-git-executable "C:/Program Files/Git/bin/git.exe")
+    (add-to-list 'exec-path "C:/Program Files/Git/bin")
+    )
+  (bind-key "C-u C-c" 'magit-status)
+  )
 ;; ---------------------------------------- git-gutter-mode
 (use-package git-gutter
   :config
@@ -226,7 +233,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (bind-key))))
+ '(package-selected-packages (quote (magit bind-key))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
