@@ -69,7 +69,7 @@
 
 ;; フォントの設定
 (set-face-attribute 'default nil
-                     :family "Courier 10 Pitch"
+                     :family "monospace"
 		     :height 90)
 
 ;; 日本語フォントの設定
