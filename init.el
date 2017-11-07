@@ -106,7 +106,8 @@
 
 ;; テーマのロード
 (when window-system
-  (load-theme 'misterioso t)
+  ;;(load-theme 'misterioso t)
+  (load-theme 'wombat t)
   )
 ;; GUI時、現在行に色をつける
 (when window-system
