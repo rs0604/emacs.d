@@ -189,6 +189,13 @@
   :config
   (bind-key [f8] 'neotree-toggle))
 
+;; ------------------------------------------- auto-complete
+(use-package auto-complete
+  :config
+  (setq ac-auto-start nil)
+  (bind-key "C-<tab>" 'auto-complete)
+  )
+
 ;; ------------------------------------------- helm
 (use-package helm)
 
