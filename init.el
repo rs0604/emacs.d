@@ -74,20 +74,25 @@
 
 ;; フォントの設定
 (when window-system
-  (set-face-attribute 'default nil
+  (when (eq system-type 'gnu/linux)
+    (set-face-attribute 'default nil
 		      :family "Courier 10 Pitch"
 		      :height 90)
-
-  ;; 日本語フォントの設定
-  (when (eq system-type 'gnu/linux)
+    
     (set-fontset-font (frame-parameter  nil 'font)
 		      'japanese-jisx0208
 		      (font-spec :family "serif"
 				 :size 14)))
+
+  
   (when (eq system-type 'windows-nt)
+    (set-face-attribute 'default nil
+		      :family "Verily Serif Mono"
+		      :height 90)
+    
     (set-fontset-font (frame-parameter  nil 'font)
 		      'japanese-jisx0208
-		      (font-spec :family "Meiryo"
+		      (font-spec :family "メイリオ"
 				 :size 14)))
   )
 
