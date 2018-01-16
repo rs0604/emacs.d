@@ -1,4 +1,3 @@
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -30,6 +29,7 @@
 (el-get-bundle web-mode)
 (el-get-bundle flycheck)
 (el-get-bundle neotree)
+(el-get-bundle undo-tree)
 (el-get-bundle visual-regexp)
 (el-get-bundle git-gutter)
 ;; 手動で入れる（暫定）
@@ -197,6 +197,12 @@
 ;; F7キーでホワイトスペース表示ON/OFF
 (bind-key "<f7>" 'whitespace-mode)
 
+;; ------------------------------------------- undo-tree
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode)
+  )
+
 ;; ------------------------------------------- neo-tree
 (use-package neotree
   :config
@@ -263,7 +269,6 @@
   (bind-key "C-c p" 'flycheck-previous-error)
   (bind-key "C-c d" 'flycheck-list-error)
   )
-
 ;; ---------------------------------------- magit
 (use-package magit
   :config
