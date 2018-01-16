@@ -28,6 +28,7 @@
 (el-get-bundle lua-mode)
 (el-get-bundle php-mode)
 (el-get-bundle web-mode)
+(el-get-bundle flycheck)
 (el-get-bundle neotree)
 (el-get-bundle visual-regexp)
 (el-get-bundle git-gutter)
@@ -252,6 +253,17 @@
   (setq web-mode-java-offset	2)
   (setq web-mode-asp-offset	2)
   )
+
+;; ---------------------------------------- flycheck
+(use-package flycheck
+  :config
+  (global-flycheck-mode)
+
+  (bind-key "C-c n" 'flycheck-next-error)
+  (bind-key "C-c p" 'flycheck-previous-error)
+  (bind-key "C-c d" 'flycheck-list-error)
+  )
+
 ;; ---------------------------------------- magit
 (use-package magit
   :config
