@@ -26,11 +26,13 @@
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
 (el-get-bundle lua-mode)
+(el-get-bundle php-mode)
+(el-get-bundle web-mode)
 (el-get-bundle neotree)
 (el-get-bundle visual-regexp)
 (el-get-bundle git-gutter)
 ;; 手動で入れる（暫定）
-;;(el-get-bundle magit)
+(el-get-bundle magit)
 
 
 ;; ---------------------------------------- use-package
@@ -150,10 +152,14 @@
 ;; C-hにバックスペースを割り当て デーモンから起動時およびミニバッファ等に対応
 (define-key key-translation-map [?\C-h] [?\C-?])
 
+;; タブの設定
 ;; C-i でタブ文字入力
-(global-set-key "\C-i" '(lambda ()
-			  (interactive)
-			  (insert "\t")))
+;;(global-set-key "\C-i" '(lambda ()
+;;			  (interactive)
+;;			  (insert "\t")))
+
+;; タブにスペースを使用する
+(setq-default tab-width 4 indent-tabs-mode nil)
 
 ;; 行の折り返しトグル C-c l
 (bind-key "C-u C-l" 'toggle-truncate-lines)
@@ -226,6 +232,25 @@
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
   (helm-mode 1)
+  )
+
+;; ---------------------------------------- web-mode
+(use-package web-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.phtml$"		. web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php$"	. web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsp$"	. web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]$"	. web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb$"	. web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?$"	. web-mode))
+
+  ;; インデント数
+  (setq web-mode-html-offset	2)
+  (setq web-mode-css-offset	2)
+  (setq web-mode-script-offset	2)
+  (setq web-mode-php-offset	2)
+  (setq web-mode-java-offset	2)
+  (setq web-mode-asp-offset	2)
   )
 ;; ---------------------------------------- magit
 (use-package magit
