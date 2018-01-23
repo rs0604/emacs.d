@@ -32,6 +32,7 @@
 (el-get-bundle undo-tree)
 (el-get-bundle visual-regexp)
 (el-get-bundle git-gutter)
+(el-get-bundle minimap)
 ;; 手動で入れる（暫定）
 (el-get-bundle magit)
 
@@ -169,8 +170,14 @@
 (bind-key "C-u C-e" 'end-of-buffer)
 (bind-key "C-u C-a" 'beginning-of-buffer)
 
-;; ウィンドウ切り替え C-u C-w
-(bind-key "C-u C-w" 'other-window)
+;; ウィンドウ切り替え C-t
+(defun other-window-or-split ()
+  (interactive)
+  (when (one-window-p)
+    (split-window-horizontally))
+  (other-window 1))
+
+(bind-key "C-t" 'other-window-or-split)
 
 ;; ウィンドウ分割 C-u C-v, C-u C-h
 (bind-key "C-u C-b" 'split-window-below)
@@ -196,6 +203,11 @@
 (define-key global-map "\C-cd" `insert-current-time)
 ;; F7キーでホワイトスペース表示ON/OFF
 (bind-key "<f7>" 'whitespace-mode)
+
+;; ------------------------------------------- minimap
+(use-package minimap
+  :config
+  )
 
 ;; ------------------------------------------- undo-tree
 (use-package undo-tree
