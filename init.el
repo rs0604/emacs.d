@@ -97,7 +97,7 @@
     
     (set-fontset-font (frame-parameter  nil 'font)
 		      'japanese-jisx0208
-		      (font-spec :family "メイリオ"
+		      (font-spec :family "はんなり明朝"
 				 :size 14)))
   )
 
