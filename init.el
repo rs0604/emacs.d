@@ -196,6 +196,9 @@
 ;; 正規表現置換えをわかりやすく
 (bind-key "M-%" 'vr/query-replace)
 
+;; F5キーでミニマップ表示のトグル
+(bind-key "<f5>" 'minimap-mode)
+
 ;; F6キーで日付挿入
 (defun insert-current-time()
   (interactive)
