@@ -33,6 +33,7 @@
 (el-get-bundle visual-regexp)
 (el-get-bundle git-gutter)
 (el-get-bundle minimap)
+(el-get-bundle birds-of-paradise-plus-theme)
 ;; 手動で入れる（暫定）
 (el-get-bundle magit)
 
@@ -116,7 +117,8 @@
 ;; テーマのロード
 (when window-system
   ;;(load-theme 'misterioso t)
-  (load-theme 'wombat t)
+  ;;(load-theme 'wombat t)
+  (load-theme 'birds-of-paradise-plus t)
   )
 ;; GUI時、現在行に色をつける
 (when window-system
@@ -289,6 +291,9 @@
   ;;  (add-to-list 'exec-path "C:/Program Files/Git/bin")
   ;;  )
   (bind-key "C-u C-c" 'magit-status)
+  (when (eq system-type 'windows-nt)
+    (setq magit-git-executable "C:/Program Files/Git/bin/git.exe")
+    )
   )
 ;; ---------------------------------------- git-gutter-mode
 (use-package git-gutter
