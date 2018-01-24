@@ -23,6 +23,7 @@
 (el-get-bundle yasnippet)
 (el-get-bundle helm)
 (el-get-bundle helm-cmd-t)
+(el-get-bundle helm-gtags)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
 (el-get-bundle lua-mode)
@@ -278,13 +279,40 @@
               :around (lambda (fcn file)
                         (unless (string-match "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)
                                               (funcall fcn file))))
-
-  
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
+
   (helm-mode 1)
   )
 
+;; ---------------------------------------- helm-gtags
+;; C-jをタグジャンプのためのプレフィックスにする
+(global-unset-key "\C-j")
+(use-package helm-gtags
+  :config
+  (add-hook 'helm-gtags-mode-hook
+            '(lambda ()
+               ;; 入力されたタグの定義元へジャンプ
+               (local-set-key (kbd "C-j C-t") 'helm-gtags-find-tag)
+
+               ;; 入力タグを参照する場所へジャンプ
+               (local-set-key (kbd "C-j C-r") 'helm-gtags-find-rtag)
+
+               ;; 入力シンボルを参照する場所へジャンプ
+               (local-set-key (kbd "C-j C-s") 'helm-gtags-find-symbol)
+
+               ;; タグ一覧からタグを選択し、その定義元へジャンプする
+               (local-set-key (kbd "C-j C-l") 'helm-gtags-select)
+
+               ;; ジャンプ前の場所に戻る
+               (local-set-key (kbd "C-j C-j") 'helm-gtags-pop-stack)))
+
+  (add-hook 'php-mode-hook 'helm-gtags-mode)
+  (add-hook 'c-mode-hook 'helm-gtags-mode)
+  )
+               
+
+                              
 ;; ---------------------------------------- web-mode
 (use-package web-mode
   :config
