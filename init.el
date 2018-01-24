@@ -13,6 +13,7 @@
   (with-current-buffer
       (url-retrieve-synchronously
        "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
@@ -258,7 +259,11 @@
   (bind-key "M-y" 'helm-show-kill-ring)
 
   (bind-key "C-x C-f" 'helm-find-files)
-  
+  (advice-add 'helm-ff-filter-candidate-one-by-one
+              :around (lambda (fcn file)
+                        (unless (string-match "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)
+                                              (funcall fcn file))))
+
   
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
