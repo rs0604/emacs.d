@@ -107,6 +107,9 @@
 ;; AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM  NN  OO  PP  QQ  RR  SS  TT
 ;; あ　い　う　え　お　か　き　く　け　こ  さ　し　す　せ　そ　た　ち　つ　て　と
 
+
+;; OSのクリップボードと共有する
+(setq select-enable-clipboard t)
 ;; フランス語のための設定
 ;; アクサン記号入力モード
 (defun fr ()
