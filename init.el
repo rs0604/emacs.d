@@ -21,7 +21,7 @@
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
 (el-get-bundle helm)
-(el-get-bundle helm-git-grep)
+(el-get-bundle helm-cmd-t)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
 (el-get-bundle lua-mode)
