@@ -209,6 +209,12 @@
 ;; F7キーでホワイトスペース表示ON/OFF
 (bind-key "<f7>" 'whitespace-mode)
 
+;; git関連のプレフィックスキー
+;; リポジトリ内で grep
+(bind-key "C-u C-g C-g" 'helm-cmd-t-grep)
+;; リポジトリ内で find
+(bind-key "C-u C-g C-f" 'helm-cmd-t-repos)
+
 ;; ------------------------------------------- minimap
 (use-package minimap
   :config
@@ -243,6 +249,7 @@
   (bind-key "C-z" 'helm-select-action helm-map)
   (bind-key "C-u C-u C-b" 'helm-mini)
   (bind-key "C-u C-u o" 'helm-occur)
+  (bind-key "C-x C-b" 'helm-buffers-list)
   
   ;; デフォルトキーバインドの置換え
   (bind-key "M-x" 'helm-M-x)
