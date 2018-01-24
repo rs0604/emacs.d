@@ -244,6 +244,7 @@
 
 (use-package helm-config
   :config
+  (bind-key "C-;" 'helm-for-files)
   (bind-key "C-u C-u" 'helm-command-prefix)
   (bind-key "<tab>" 'helm-execute-persistent-action helm-map)
   (bind-key "C-i" 'helm-execute-persistent-action helm-map)
@@ -262,6 +263,7 @@
 
   ;; 自動補完を無効化
   (custom-set-variables '(helm-ff-auto-update-initial-value nil))
+  
   ;; . と .. を候補から除外
   (advice-add 'helm-ff-filter-candidate-one-by-one
               :around (lambda (fcn file)
