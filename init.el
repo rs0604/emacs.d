@@ -259,6 +259,10 @@
   (bind-key "M-y" 'helm-show-kill-ring)
 
   (bind-key "C-x C-f" 'helm-find-files)
+
+  ;; 自動補完を無効化
+  (custom-set-variables '(helm-ff-auto-update-initial-value nil))
+  ;; . と .. を候補から除外
   (advice-add 'helm-ff-filter-candidate-one-by-one
               :around (lambda (fcn file)
                         (unless (string-match "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)
