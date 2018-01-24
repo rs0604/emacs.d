@@ -262,7 +262,16 @@
   (bind-key "C-x C-f" 'helm-find-files)
 
   ;; 自動補完を無効化
-  (custom-set-variables '(helm-ff-auto-update-initial-value nil))
+  ;; (custom-set-variables '(helm-ff-auto-update-initial-value nil))
+  (setq helm-ff-auto-update-initial-value nil)
+
+  (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(find-file-at-point . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(write-file . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(helm-c-yas-complete . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(dired-do-copy . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(dired-do-rename . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(dired-create-directory . nil))
   
   ;; . と .. を候補から除外
   (advice-add 'helm-ff-filter-candidate-one-by-one
