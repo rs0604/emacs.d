@@ -21,12 +21,13 @@
 (el-get-bundle auto-complete)
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
-(el-get-bundle anything)
+(el-get-bundle helm)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
 (el-get-bundle lua-mode)
 (el-get-bundle neotree)
 (el-get-bundle visual-regexp)
+(el-get-bundle git-gutter)
 ;; linuxでのみ利用する拡張機能
 (when (eq system-type 'gnu/linux)
   (el-get-bundle magit)
@@ -50,16 +51,20 @@
 ;; 行番号・桁番号を表示する
 (line-number-mode 1)
 (column-number-mode 1)
-(global-linum-mode t)
+;;(global-linum-mode t)
 
 ;;ツールバーを削除
-(tool-bar-mode 0)
+(when window-system
+  (tool-bar-mode 0)
+  )
 
 ;;メニューバーを削除
 (menu-bar-mode 0)
 
 ;; スクロールバーを削除
-(scroll-bar-mode 0)
+(when window-system
+  (scroll-bar-mode 0)
+  )
 
 ;; ファイルサイズの表示
 (size-indication-mode t)
@@ -83,7 +88,6 @@
 		    'japanese-jisx0208
 		    (font-spec :family "Meiryo"
 			       :size 14)))
-
 
 ;; 左右２分割したとき、下の行が折り返しなし&行末が揃うように調整する
 ;; AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM  NN  OO  PP  QQ  RR  SS  TT
@@ -183,18 +187,38 @@
   :config
   (bind-key [f8] 'neotree-toggle))
 
-;; ------------------------------------------- anything
-;; C-j をanything関連のプレフィックスにする
-(global-unset-key "\C-j")
-(use-package anything-startup)
+;; ------------------------------------------- helm
+(use-package helm)
 
-(use-package anything-config
+(use-package helm-config
   :config
-  (setq anything-enable-shortcuts 'prefix)
-  (bind-key "@" 'anything-select-with-prefix-shortcut anything-map)
-  (bind-key "C-j C-b" 'anything-mini)
+  (bind-key "C-u C-u" 'helm-command-prefix)
+  (bind-key "<tab>" 'helm-execute-persistent-action helm-map)
+  (bind-key "C-i" 'helm-execute-persistent-action helm-map)
+  (bind-key "C-z" 'helm-select-action helm-map)
+  (bind-key "C-u C-u C-b" 'helm-mini)
+  (bind-key "C-u C-u o" 'helm-occur)
+  
+  ;; デフォルトキーバインドの置換え
+  (bind-key "M-x" 'helm-M-x)
+  (setq helm-M-x-fuzzy-match t)
+
+  (bind-key "M-y" 'helm-show-kill-ring)
+
+  (bind-key "C-x C-f" 'helm-find-files)
+  
+  
+  (when (executable-find "curl")
+    (setq helm-google-suggest-use-curl-p t))
+  (helm-mode 1)
   )
 
+;; ---------------------------------------- git-gutter-mode
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode t)
+  )
+  
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
