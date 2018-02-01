@@ -2,6 +2,11 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(fset 'package-desc-vers 'package--ac-desc-version)
 (package-initialize)
 
 (when load-file-name
@@ -36,6 +41,7 @@
 (el-get-bundle git-gutter)
 (el-get-bundle minimap)
 (el-get-bundle birds-of-paradise-plus-theme)
+(el-get-bundle elpa:sourcerer-theme)
 ;; 手動で入れる（暫定）
 (el-get-bundle magit)
 
@@ -94,8 +100,8 @@
   
   (when (eq system-type 'windows-nt)
     (set-face-attribute 'default nil
-		      :family "Verily Serif Mono"
-		      :height 90)
+              :family "Verily Serif Mono"
+		      :height 80)
     
     (set-fontset-font (frame-parameter  nil 'font)
 		      'japanese-jisx0208
