@@ -86,6 +86,11 @@
 (show-paren-mode 1)
 
 ;; フォントの設定
+(set-face-attribute 'default nil
+                     :family "monospace"
+		     :height 90)
+
+;; 日本語フォントの設定
 (when window-system
   (when (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil
