@@ -134,7 +134,7 @@
 (when window-system
   ;;(load-theme 'misterioso t)
   ;;(load-theme 'wombat t)
-  (load-theme 'birds-of-paradise-plus t)
+  (load-theme 'sourcerer t)
   )
 ;; GUI時、現在行に色をつける
 (when window-system
@@ -180,6 +180,18 @@
 
 ;; タブにスペースを使用する
 (setq-default tab-width 4 indent-tabs-mode nil)
+
+;; タブ幅の設定 web-mode
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-attr-indent-offset nil)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-sql-indent-offset 2)
+  (setq indent-tabs-mode nil)
+  (setq tab-width 2))
+(add-hook 'web-mode-hook 'my-web-mode-hook)
 
 ;; 行の折り返しトグル C-c l
 (bind-key "C-u C-l" 'toggle-truncate-lines)
