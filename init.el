@@ -178,21 +178,6 @@
 ;;			  (interactive)
 ;;			  (insert "\t")))
 
-;; タブにスペースを使用する
-(setq-default tab-width 4 indent-tabs-mode nil)
-
-;; タブ幅の設定 web-mode
-(defun my-web-mode-hook ()
-  "Hooks for Web mode."
-  (setq web-mode-attr-indent-offset nil)
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-sql-indent-offset 2)
-  (setq indent-tabs-mode nil)
-  (setq tab-width 2))
-(add-hook 'web-mode-hook 'my-web-mode-hook)
-
 ;; 行の折り返しトグル C-c l
 (bind-key "C-u C-l" 'toggle-truncate-lines)
 
@@ -242,6 +227,33 @@
 (bind-key "C-u C-g C-g" 'helm-cmd-t-grep)
 ;; リポジトリ内で find
 (bind-key "C-u C-g C-f" 'helm-cmd-t-repos)
+
+;; ------------------------------------------- フォーマット関連
+
+;; タブにスペースを使用する
+(setq-default tab-width 4 indent-tabs-mode nil)
+
+;; タブ幅の設定 web-mode
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-attr-indent-offset nil)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-sql-indent-offset 2)
+  (setq indent-tabs-mode nil)
+  (setq tab-width 2))
+(add-hook 'web-mode-hook 'my-web-mode-hook)
+
+;; タブ幅の設定 lua-mode
+(defun lua-mode-indent-hook ()
+  "Hooks for Lua mode."
+  (setq lua-indent-level 2)
+  )
+(add-hook 'lua-mode-hook 'lua-mode-indent-hook)
+
+;; 保存時、自動で行末のスペースを削除
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; ------------------------------------------- minimap
 (use-package minimap
@@ -350,12 +362,12 @@
   (add-to-list 'auto-mode-alist '("\\.html?$"	. web-mode))
 
   ;; インデント数
-  (setq web-mode-html-offset	2)
-  (setq web-mode-css-offset	2)
-  (setq web-mode-script-offset	2)
-  (setq web-mode-php-offset	2)
-  (setq web-mode-java-offset	2)
-  (setq web-mode-asp-offset	2)
+  ;; (setq web-mode-html-offset	2)
+  ;; (setq web-mode-css-offset	2)
+  ;; (setq web-mode-script-offset	2)
+  ;; (setq web-mode-php-offset	2)
+  ;; (setq web-mode-java-offset	2)
+  ;; (setq web-mode-asp-offset	2)
   )
 
 ;; ---------------------------------------- flycheck
