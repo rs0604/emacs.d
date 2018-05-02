@@ -96,21 +96,21 @@
     (set-face-attribute 'default nil
 		      :family "Courier 10 Pitch"
 		      :height 90)
-    
+
     (set-fontset-font (frame-parameter  nil 'font)
 		      'japanese-jisx0208
 		      (font-spec :family "serif"
 				 :size 14)))
 
-  
+
   (when (eq system-type 'windows-nt)
     (set-face-attribute 'default nil
               :family "Verily Serif Mono"
-		      :height 80)
-    
+		      :height 90)
+
     (set-fontset-font (frame-parameter  nil 'font)
 		      'japanese-jisx0208
-		      (font-spec :family "はんなり明朝"
+		      (font-spec :family "Meiryo"
 				 :size 14)))
   )
 
@@ -254,6 +254,7 @@
 
 ;; 保存時、自動で行末のスペースを削除
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; 保存時、自動でタブをスペースに変換
 
 ;; ------------------------------------------- minimap
 (use-package minimap
@@ -291,7 +292,7 @@
   (bind-key "C-u C-u C-b" 'helm-mini)
   (bind-key "C-u C-u o" 'helm-occur)
   (bind-key "C-x C-b" 'helm-buffers-list)
-  
+
   ;; デフォルトキーバインドの置換え
   (bind-key "M-x" 'helm-M-x)
   (setq helm-M-x-fuzzy-match t)
@@ -311,7 +312,7 @@
   (add-to-list 'helm-completing-read-handlers-alist '(dired-do-copy . nil))
   (add-to-list 'helm-completing-read-handlers-alist '(dired-do-rename . nil))
   (add-to-list 'helm-completing-read-handlers-alist '(dired-create-directory . nil))
-  
+
   ;; . と .. を候補から除外
   (advice-add 'helm-ff-filter-candidate-one-by-one
               :around (lambda (fcn file)
@@ -348,9 +349,9 @@
   (add-hook 'php-mode-hook 'helm-gtags-mode)
   (add-hook 'c-mode-hook 'helm-gtags-mode)
   )
-               
 
-                              
+
+
 ;; ---------------------------------------- web-mode
 (use-package web-mode
   :config
@@ -396,7 +397,7 @@
   :config
   (global-git-gutter-mode t)
   )
-  
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
