@@ -45,6 +45,7 @@
 (el-get-bundle clues-theme)
 (el-get-bundle elpa:sourcerer-theme)
 (el-get-bundle highlight-symbol)
+(el-get-bundle powerline)
 ;; 手動で入れる（暫定）
 (el-get-bundle magit)
 
@@ -424,7 +425,67 @@
   (setq highlight-symbol-idle-delay 1.0) ;; 1秒後のハイライト
   (add-hook 'prog-mode-hook 'highlight-symbol-mode) ;; プログラミング言語の時自動で on
   ;;(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode) ;; M-p/M-nでシンボル間を移動
-)
+  )
+
+;; ---------------------------------------- powerline
+(use-package powerline
+  :config
+  (defconst fgcolor1-active "#382048")
+  (defconst bgcolor1-active "#F0E0D0")
+  (defconst fgcolor2-active "#D0C0A0")
+  (defconst bgcolor2-active "#382848")
+  (defconst fgcolor3-active "#D0C0A0")
+  (defconst bgcolor3-active "#201038")
+  (defconst fgcolor1-inactive "#382048")
+  (defconst bgcolor1-inactive "#A0A080")
+  (defconst fgcolor2-inactive "#A0A080")
+  (defconst bgcolor2-inactive "#201830")
+  (defconst fgcolor3-inactive "#A0A080")
+  (defconst bgcolor3-inactive "#100818")
+
+  (set-face-attribute 'mode-line nil
+                      :foreground fgcolor1-active
+                      :background bgcolor1-active
+                      :bold t
+                      :box nil)
+
+  (set-face-attribute 'powerline-active1 nil
+                      :foreground fgcolor2-active
+                      :background bgcolor2-active
+                      :bold t
+                      :box nil
+                      :inherit 'mode-line)
+
+  (set-face-attribute 'powerline-active2 nil
+                      :foreground fgcolor3-active
+                      :background bgcolor3-active
+                      :bold t
+                      :box nil
+                      :inherit 'mode-line)
+
+  (set-face-attribute 'mode-line-inactive nil
+                      :foreground fgcolor1-inactive
+                      :background bgcolor1-inactive
+                      :bold t
+                      :box nil)
+
+  (set-face-attribute 'powerline-inactive1 nil
+                      :foreground fgcolor2-inactive
+                      :background bgcolor2-inactive
+                      :bold t
+                      :box nil
+                      :inherit 'mode-line)
+
+  (set-face-attribute 'powerline-inactive2 nil
+                      :foreground fgcolor3-inactive
+                      :background bgcolor3-inactive
+                      :bold t
+                      :box nil
+                      :inherit 'mode-line)
+  (powerline-center-theme)
+  )
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
