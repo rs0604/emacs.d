@@ -268,6 +268,7 @@
 
 ;; ------------------------------------------- undo-tree
 (use-package undo-tree
+  :diminish undo-tree-mode
   :config
   (global-undo-tree-mode)
   )
@@ -288,6 +289,7 @@
 (use-package helm)
 
 (use-package helm-config
+  :diminish helm-mode
   :config
   (bind-key "C-;" 'helm-for-files)
   (bind-key "C-u C-u" 'helm-command-prefix)
@@ -400,12 +402,14 @@
 ;; ---------------------------------------- git-gutter-mode
 (unless window-system
   (use-package git-gutter
-  :config
-  (global-git-gutter-mode t)))
+    :diminish git-gutter-mode
+    :config
+    (global-git-gutter-mode t)))
 
 ;; ---------------------------------------- git-gutter-fringe
 (when window-system
   (use-package git-gutter-fringe
+    :diminish git-gutter-mode
     :config
     (global-git-gutter-mode t)
     (global-linum-mode t)
@@ -414,10 +418,13 @@
 ;; ---------------------------------------- highlight-symbol
 ;; カーソル位置のハイライト
 ;; highlight-symbol
-(setq highlight-symbol-idle-delay 1.0) ;; 1秒後のハイライト
-(add-hook 'prog-mode-hook 'highlight-symbol-mode) ;; プログラミング言語の時自動で on
-;;(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode) ;; M-p/M-nでシンボル間を移動
-
+(use-package highlight-symbol
+  :diminish highlight-symbol-mode
+  :config
+  (setq highlight-symbol-idle-delay 1.0) ;; 1秒後のハイライト
+  (add-hook 'prog-mode-hook 'highlight-symbol-mode) ;; プログラミング言語の時自動で on
+  ;;(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode) ;; M-p/M-nでシンボル間を移動
+)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
