@@ -42,6 +42,7 @@
 (el-get-bundle git-gutter-fringe)
 (el-get-bundle minimap)
 (el-get-bundle birds-of-paradise-plus-theme)
+(el-get-bundle clues-theme)
 (el-get-bundle elpa:sourcerer-theme)
 (el-get-bundle highlight-symbol)
 ;; 手動で入れる（暫定）
@@ -136,7 +137,9 @@
 (when window-system
   ;;(load-theme 'misterioso t)
   ;;(load-theme 'wombat t)
-  (load-theme 'sourcerer t)
+  ;;(load-theme 'sourcerer t)
+  (load-theme 'clues t)
+
   )
 ;; GUI時、現在行に色をつける
 (when window-system
