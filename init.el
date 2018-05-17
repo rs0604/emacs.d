@@ -39,9 +39,11 @@
 (el-get-bundle undo-tree)
 (el-get-bundle visual-regexp)
 (el-get-bundle git-gutter)
+(el-get-bundle git-gutter-fringe)
 (el-get-bundle minimap)
 (el-get-bundle birds-of-paradise-plus-theme)
 (el-get-bundle elpa:sourcerer-theme)
+(el-get-bundle highlight-symbol)
 ;; 手動で入れる（暫定）
 (el-get-bundle magit)
 
@@ -393,10 +395,25 @@
     )
   )
 ;; ---------------------------------------- git-gutter-mode
-(use-package git-gutter
+(unless window-system
+  (use-package git-gutter
   :config
-  (global-git-gutter-mode t)
-  )
+  (global-git-gutter-mode t)))
+
+;; ---------------------------------------- git-gutter-fringe
+(when window-system
+  (use-package git-gutter-fringe
+    :config
+    (global-git-gutter-mode t)
+    (global-linum-mode t)
+    ))
+
+;; ---------------------------------------- highlight-symbol
+;; カーソル位置のハイライト
+;; highlight-symbol
+(setq highlight-symbol-idle-delay 1.0) ;; 1秒後のハイライト
+(add-hook 'prog-mode-hook 'highlight-symbol-mode) ;; プログラミング言語の時自動で on
+;;(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode) ;; M-p/M-nでシンボル間を移動
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
