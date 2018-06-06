@@ -89,6 +89,15 @@
 ;;; 釣合う括弧をハイライトする
 (show-paren-mode 1)
 
+;; テーマのロード
+(when window-system
+  ;;(load-theme 'misterioso t)
+  ;;(load-theme 'wombat t)
+  ;;(load-theme 'sourcerer t)
+  (load-theme 'clues t)
+
+  )
+
 ;; フォントの設定
 (set-face-attribute 'default nil
                      :family "monospace"
@@ -98,24 +107,32 @@
 (when window-system
   (when (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil
-		      :family "Courier 10 Pitch"
-		      :height 90)
+                        :family "Courier 10 Pitch"
+                        :height 90)
+
+    (set-face-attribute 'mode-line nil
+                        :family "Courier 10 Pitch"
+                        :height 90)
 
     (set-fontset-font (frame-parameter  nil 'font)
-		      'japanese-jisx0208
-		      (font-spec :family "serif"
-				 :size 14)))
+                      'japanese-jisx0208
+                      (font-spec :family "serif"
+                                 :size 14)))
 
 
   (when (eq system-type 'windows-nt)
     (set-face-attribute 'default nil
-              :family "Verily Serif Mono"
-		      :height 90)
+                        :family "Verily Serif Mono"
+                        :height 90)
+
+    (set-face-attribute 'mode-line nil
+                        :family "Garamond"
+                        :height 100)
 
     (set-fontset-font (frame-parameter  nil 'font)
-		      'japanese-jisx0208
-		      (font-spec :family "Meiryo"
-				 :size 14)))
+                      'japanese-jisx0208
+                      (font-spec :family "Meiryo"
+                                 :size 14)))
   )
 
 ;; 左右２分割したとき、下の行が折り返しなし&行末が揃うように調整する
@@ -134,14 +151,6 @@
 ;; F9キーに割当て。切りたければC-/で。
 (bind-key "<f9>" 'fr)
 
-;; テーマのロード
-(when window-system
-  ;;(load-theme 'misterioso t)
-  ;;(load-theme 'wombat t)
-  ;;(load-theme 'sourcerer t)
-  (load-theme 'clues t)
-
-  )
 ;; GUI時、現在行に色をつける
 (when window-system
   (global-hl-line-mode t)
@@ -482,7 +491,7 @@
                       :bold t
                       :box nil
                       :inherit 'mode-line)
-  (powerline-center-theme)
+  (powerline-default-theme)
   )
 
 
