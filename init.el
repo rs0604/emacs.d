@@ -23,7 +23,8 @@
     (eval-print-last-sexp)))
 
 ;; el-get packages
-(el-get-bundle auto-complete)
+(el-get-bundle company-mode/company-mode)
+(el-get-bundle xcwen/ac-php)
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
 (el-get-bundle helm)
@@ -41,12 +42,9 @@
 (el-get-bundle git-gutter)
 (el-get-bundle git-gutter-fringe)
 (el-get-bundle minimap)
-(el-get-bundle birds-of-paradise-plus-theme)
 (el-get-bundle clues-theme)
-(el-get-bundle elpa:sourcerer-theme)
 (el-get-bundle highlight-symbol)
 (el-get-bundle powerline)
-;; 手動で入れる（暫定）
 (el-get-bundle magit)
 
 
@@ -100,8 +98,8 @@
 
 ;; フォントの設定
 (set-face-attribute 'default nil
-                     :family "monospace"
-		     :height 90)
+                    :family "monospace"
+                    :height 90)
 
 ;; 日本語フォントの設定
 (when window-system
@@ -271,6 +269,58 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; 保存時、自動でタブをスペースに変換
 
+;; ------------------------------------------- org-mode
+;; org-directoryはDropBox内のファイルを指定
+(when (eq system-type 'windows-nt)
+  (setq org-directory "~/../../Dropbox/agenda/")
+  )
+(when (eq system-type 'gnu/linux)
+  (setq org-directory "~/Dropbox/agenda/")
+  )
+(setq org-agenda-files (list org-directory))
+(add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
+(setq hl-line-face 'underline)
+(setq calendar-holidays nil) ;; 不要なら削除
+
+;; ------------------------------------------- company
+(use-package company
+  :config
+  (global-company-mode +1)
+  (setq company-auto-expand t) ;; 1個目を自動的に補完
+  (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
+      (setq company-idle-delay 0) ; 遅延なしにすぐ表示
+      (setq company-minimum-prefix-length 2) ; デフォルトは4
+      (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
+      (setq completion-ignore-case t)
+      (setq company-dabbrev-downcase nil)
+      (bind-key "C-<tab>" 'company-complete)
+      ;; C-n, C-pで補完候補を次/前の候補を選択
+      (define-key company-active-map (kbd "C-n") 'company-select-next)
+      (define-key company-active-map (kbd "C-p") 'company-select-previous)
+      (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
+      (define-key company-active-map (kbd "C-h") nil) ;; C-hはバックスペース割当のため無効化
+      (define-key company-active-map (kbd "C-S-h") 'company-show-doc-buffer) ;; ドキュメント表示はC-Shift-h
+
+      ;; 未選択項目
+      (set-face-attribute 'company-tooltip nil
+                  :foreground "#36c6b0" :background "#244f36")
+      ;; 未選択項目&一致文字
+      (set-face-attribute 'company-tooltip-common nil
+                    :foreground "white" :background "#244f36")
+      ;; 選択項目
+      (set-face-attribute 'company-tooltip-selection nil
+                  :foreground "#a1ffcd" :background "#007771")
+      ;; 選択項目&一致文字
+      (set-face-attribute 'company-tooltip-common-selection nil
+                    :foreground "white" :background "#007771")
+      ;; スクロールバー
+      (set-face-attribute 'company-scrollbar-fg nil
+                  :background "#4cd0c1")
+      ;; スクロールバー背景
+      (set-face-attribute 'company-scrollbar-bg nil
+                          :background "#002b37")
+      )
+
 ;; ------------------------------------------- minimap
 (use-package minimap
   :config
@@ -288,12 +338,6 @@
   :config
   (bind-key [f8] 'neotree-toggle))
 
-;; ------------------------------------------- auto-complete
-(use-package auto-complete
-  :config
-  (setq ac-auto-start nil)
-  (bind-key "C-<tab>" 'auto-complete)
-  )
 
 ;; ------------------------------------------- helm
 (use-package helm)
