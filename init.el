@@ -4,7 +4,15 @@
 ;; You may delete these explanatory comments.
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (fset 'package-desc-vers 'package--ac-desc-version)
 (package-initialize)
@@ -36,17 +44,18 @@
 (el-get-bundle php-mode)
 (el-get-bundle web-mode)
 (el-get-bundle flycheck)
+(el-get-bundle flycheck-phpstan)
 (el-get-bundle neotree)
 (el-get-bundle undo-tree)
 (el-get-bundle visual-regexp)
 (el-get-bundle git-gutter)
 (el-get-bundle git-gutter-fringe)
 (el-get-bundle minimap)
-(el-get-bundle clues-theme)
 (el-get-bundle highlight-symbol)
 (el-get-bundle powerline)
 (el-get-bundle magit)
 
+(el-get-bundle clues-theme)
 
 ;; ---------------------------------------- use-package
 ;; use-package がなければ、ロードしない
@@ -93,7 +102,8 @@
   ;;(load-theme 'wombat t)
   ;;(load-theme 'sourcerer t)
   (load-theme 'clues t)
-
+  ;;(load-theme 'darktooth t)
+  (set-frame-parameter nil 'alpha 90)
   )
 
 ;; フォントの設定
@@ -105,16 +115,16 @@
 (when window-system
   (when (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil
-                        :family "Courier 10 Pitch"
+                        :family "Verily Serif Mono"
                         :height 90)
 
     (set-face-attribute 'mode-line nil
-                        :family "Courier 10 Pitch"
+                        :family "Verily Serif Mono"
                         :height 90)
 
     (set-fontset-font (frame-parameter  nil 'font)
                       'japanese-jisx0208
-                      (font-spec :family "serif"
+                      (font-spec :family "VL ゴシック"
                                  :size 14)))
 
 
@@ -441,6 +451,15 @@
   (bind-key "C-c p" 'flycheck-previous-error)
   (bind-key "C-c d" 'flycheck-list-error)
   )
+
+;; ---------------------------------------- flycheck-phpstan
+(defun my-php-mode-hook ()
+  "My PHP-mode hook."
+  (require 'flycheck-phpstan)
+  (flycheck-mode t)
+  (flycheck-select-checker 'phpstan))
+(add-hook 'php-mode-hook 'my-php-mode-hook)
+
 ;; ---------------------------------------- magit
 (use-package magit
   :config
@@ -544,7 +563,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (magit bind-key))))
+ '(package-selected-packages (quote (darktooth-theme magit bind-key))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
