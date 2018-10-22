@@ -43,6 +43,7 @@
 (el-get-bundle lua-mode)
 (el-get-bundle php-mode)
 (el-get-bundle web-mode)
+(el-get-bundle markdown-mode)
 (el-get-bundle flycheck)
 (el-get-bundle flycheck-phpstan)
 (el-get-bundle neotree)
@@ -127,7 +128,6 @@
                       (font-spec :family "VL ゴシック"
                                  :size 14)))
 
-
   (when (eq system-type 'windows-nt)
     (set-face-attribute 'default nil
                         :family "Verily Serif Mono"
@@ -147,6 +147,17 @@
 ;; AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM  NN  OO  PP  QQ  RR  SS  TT
 ;; あ　い　う　え　お　か　き　く　け　こ  さ　し　す　せ　そ　た　ち　つ　て　と
 
+;; 全角スペースの強調表示
+(require 'whitespace)
+(set-face-foreground 'whitespace-space "DarkGoldenrod1") ; 前景色を黄色に
+(set-face-background 'whitespace-space nil) ; 背景色を未設定に
+(set-face-bold-p 'whitespace-space t) ; 太字
+(setq whitespace-space-regexp "\\(\x3000+\\)")
+(setq whitespace-display-mappings
+      '((space-mark ?\x3000 [?\□])
+        ))
+
+(global-whitespace-mode 1); 全角スペースを常に表示
 
 ;; OSのクリップボードと共有する
 (setq select-enable-clipboard t)
@@ -291,6 +302,16 @@
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
 (setq hl-line-face 'underline)
 (setq calendar-holidays nil) ;; 不要なら削除
+
+;; ------------------------------------------- markdown-mode
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "/usr/bin/pandoc"))
+;;  :init (setq markdown-command "multimarkdown"))
 
 ;; ------------------------------------------- company
 (use-package company
