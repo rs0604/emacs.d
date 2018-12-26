@@ -9,10 +9,7 @@
        (proto (if no-ssl "http" "https")))
   ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
+  )
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (fset 'package-desc-vers 'package--ac-desc-version)
 (package-initialize)
@@ -33,6 +30,7 @@
 ;; el-get packages
 (el-get-bundle company-mode/company-mode)
 (el-get-bundle xcwen/ac-php)
+(el-get-bundle emacs-phpcbf)
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
 (el-get-bundle helm)
@@ -147,18 +145,6 @@
 ;; AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM  NN  OO  PP  QQ  RR  SS  TT
 ;; あ　い　う　え　お　か　き　く　け　こ  さ　し　す　せ　そ　た　ち　つ　て　と
 
-;; 全角スペースの強調表示
-(require 'whitespace)
-(set-face-foreground 'whitespace-space "DarkGoldenrod1") ; 前景色を黄色に
-(set-face-background 'whitespace-space nil) ; 背景色を未設定に
-(set-face-bold-p 'whitespace-space t) ; 太字
-(setq whitespace-space-regexp "\\(\x3000+\\)")
-(setq whitespace-display-mappings
-      '((space-mark ?\x3000 [?\□])
-        ))
-
-(global-whitespace-mode 1); 全角スペースを常に表示
-
 ;; OSのクリップボードと共有する
 (setq select-enable-clipboard t)
 ;; フランス語のための設定
@@ -200,6 +186,9 @@
 ;; ---------------------------------------- キーバインド（Emacs標準）
 ;; C-u をよく使う操作のプレフィックスにする
 (global-unset-key "\C-u")
+
+;; GUIだとほとんど使わないサスペンド機能を無効化
+(global-unset-key "\C-z")
 
 ;; C-m に newline-and-indent を割当 初期値はnewline
 (bind-key "C-m" 'newline-and-indent)
@@ -442,8 +431,6 @@
   (add-hook 'c-mode-hook 'helm-gtags-mode)
   )
 
-
-
 ;; ---------------------------------------- web-mode
 (use-package web-mode
   :config
@@ -454,6 +441,27 @@
   (add-to-list 'auto-mode-alist '("\\.erb$"	. web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?$"	. web-mode))
 
+  ;; 色の設定
+  ;;(custom-set-faces
+  ;; '(web-mode-doctype-face
+  ;;   ((t (:foreground "#82AE46"))))
+  ;; '(web-mode-html-tag-face
+  ;;   ((t (:foreground "#E6B422" :weight bold))))
+  ;; '(web-mode-html-attr-name-face
+  ;;   ((t (:foreground "#C97586"))))
+  ;; '(web-mode-html-attr-value-face
+  ;;   ((t (:foreground "#82AE46"))))
+  ;; '(web-mode-comment-face
+  ;;   ((t (:foreground "#D9333F"))))
+  ;; '(web-mode-server-comment-face
+  ;;   ((t (:foreground "#D9333F"))))
+  ;; '(web-mode-css-rule-face
+  ;;   ((t (:foreground "#A0D8EF"))))
+  ;; '(web-mode-css-pseudo-class-face
+  ;;   ((t (:foreground "#FF7F00"))))
+  ;; '(web-mode-css-at-rule-face
+  ;;   ((t (:foreground "#FF7F00"))))
+  ;; )
   ;; インデント数
   ;; (setq web-mode-html-offset	2)
   ;; (setq web-mode-css-offset	2)
@@ -478,9 +486,20 @@
   "My PHP-mode hook."
   (require 'flycheck-phpstan)
   (flycheck-mode t)
-  (flycheck-select-checker 'phpstan))
+  (flycheck-select-checker 'phpstan)
+  (setq php-mode-coding-style 'psr2
+        c-basic-offset 4))
 (add-hook 'php-mode-hook 'my-php-mode-hook)
 
+;; ---------------------------------------- phpcbf
+(require 'phpcbf)
+
+(custom-set-variables
+ '(phpcbf-executable "/usr/bin/phpcbf")
+ '(phpcbf-standard "PSR2"))
+
+;; Auto format on save.
+(add-hook 'php-mode-hook 'phpcbf-enable-on-save)
 ;; ---------------------------------------- magit
 (use-package magit
   :config
@@ -584,7 +603,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (darktooth-theme magit bind-key))))
+ '(package-selected-packages (quote (darktooth-theme magit bind-key)))
+ '(safe-local-variable-values (quote ((php-project-root . auto)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
