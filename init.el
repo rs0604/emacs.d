@@ -232,8 +232,11 @@
 ;; 正規表現置換えをわかりやすく
 (bind-key "M-%" 'vr/query-replace)
 
-;; F5キーでミニマップ表示のトグル
-(bind-key "<f5>" 'minimap-mode)
+;; F5キーでPHPデバッグログ挿入（yasnippet設定までの仮
+(defun insert-php-debuglog()
+  (interactive)
+  (insert "error_log(print_r($data,true),'3','/vagrant/public_html/application/logs/debug.log');"))
+(bind-key "<f5>" 'insert-php-debuglog)
 
 ;; F6キーで日付挿入
 (defun insert-current-time()
