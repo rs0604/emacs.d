@@ -30,7 +30,7 @@
 ;; el-get packages
 (el-get-bundle company-mode/company-mode)
 (el-get-bundle xcwen/ac-php)
-(el-get-bundle emacs-phpcbf)
+(el-get-bundle phpcbf)
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
 (el-get-bundle helm)
@@ -499,8 +499,14 @@
 (require 'phpcbf)
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (darktooth-theme magit bind-key)))
  '(phpcbf-executable "/usr/bin/phpcbf")
- '(phpcbf-standard "PSR2"))
+ '(phpcbf-standard "PSR2")
+ '(safe-local-variable-values (quote ((php-project-root . auto)))))
 
 ;; Auto format on save.
 (add-hook 'php-mode-hook 'phpcbf-enable-on-save)
@@ -602,13 +608,7 @@
   )
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (darktooth-theme magit bind-key)))
- '(safe-local-variable-values (quote ((php-project-root . auto)))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
