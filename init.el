@@ -38,6 +38,7 @@
 (el-get-bundle helm-gtags)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
+(el-get-bundle haskell-mode)
 (el-get-bundle lua-mode)
 (el-get-bundle php-mode)
 (el-get-bundle web-mode)
