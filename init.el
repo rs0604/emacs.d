@@ -46,6 +46,7 @@
 (el-get-bundle highlight-symbol)
 (el-get-bundle powerline)
 (el-get-bundle magit)
+(el-get-bundle hide-mode-line)
 
 (when (eq system-type 'gnu/linux)
   ;; make が必要となるため、Windowsだとめんどくさいため一旦OFFに
@@ -273,6 +274,10 @@
 ;; 保存時、自動で行末のスペースを削除
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; 保存時、自動でタブをスペースに変換
+;; ------------------------------------------- hide-mode-line
+(use-package hide-mode-line
+  :hook
+  ((neotree-mode imenu-list-minor-mode minimap-mode) . hide-mode-line-mode))
 
 ;; ------------------------------------------- org-mode
 ;; org-directoryはDropBox内のファイルを指定
