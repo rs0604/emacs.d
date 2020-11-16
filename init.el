@@ -53,7 +53,7 @@
   (el-get-bundle haskell-mode)
 )
 
-(el-get-bundle clues-theme)
+(el-get-bundle doom-themes)
 
 ;; ---------------------------------------- use-package
 ;; use-package がなければ、ロードしない
@@ -96,13 +96,17 @@
 
 ;; テーマのロード
 (when window-system
-  (load-theme 'misterioso t)
-  ;;(load-theme 'wombat t)
-  ;;(load-theme 'sourcerer t)
-  ;; (load-theme 'clues t)
-  ;;(load-theme 'darktooth t)
   (set-frame-parameter nil 'alpha 90)
   )
+
+(use-package doom-themes
+  :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  (load-theme 'doom-manegarm t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (doom-themes-org-config))
 
 ;; フォントの設定
 (set-face-attribute 'default nil
