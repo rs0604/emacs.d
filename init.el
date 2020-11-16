@@ -29,22 +29,14 @@
 
 ;; el-get packages
 (el-get-bundle company-mode/company-mode)
-(el-get-bundle xcwen/ac-php)
-(el-get-bundle phpcbf)
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
-(el-get-bundle helm)
-(el-get-bundle helm-cmd-t)
-(el-get-bundle helm-gtags)
+(el-get-bundle counsel)
+(el-get-bundle ivy)
 (el-get-bundle bind-key)
 (el-get-bundle diminish)
-(el-get-bundle haskell-mode)
 (el-get-bundle lua-mode)
-(el-get-bundle php-mode)
 (el-get-bundle web-mode)
-(el-get-bundle markdown-mode)
-(el-get-bundle flycheck)
-(el-get-bundle flycheck-phpstan)
 (el-get-bundle neotree)
 (el-get-bundle undo-tree)
 (el-get-bundle visual-regexp)
@@ -54,6 +46,11 @@
 (el-get-bundle highlight-symbol)
 (el-get-bundle powerline)
 (el-get-bundle magit)
+
+(when (eq system-type 'gnu/linux)
+  ;; make が必要となるため、Windowsだとめんどくさいため一旦OFFに
+  (el-get-bundle haskell-mode)
+)
 
 (el-get-bundle clues-theme)
 
@@ -98,10 +95,10 @@
 
 ;; テーマのロード
 (when window-system
-  ;;(load-theme 'misterioso t)
+  (load-theme 'misterioso t)
   ;;(load-theme 'wombat t)
   ;;(load-theme 'sourcerer t)
-  (load-theme 'clues t)
+  ;; (load-theme 'clues t)
   ;;(load-theme 'darktooth t)
   (set-frame-parameter nil 'alpha 90)
   )
@@ -249,12 +246,6 @@
 ;; F7キーでホワイトスペース表示ON/OFF
 (bind-key "<f7>" 'whitespace-mode)
 
-;; git関連のプレフィックスキー
-;; リポジトリ内で grep
-(bind-key "C-u C-g C-g" 'helm-cmd-t-grep)
-;; リポジトリ内で find
-(bind-key "C-u C-g C-f" 'helm-cmd-t-repos)
-
 ;; ------------------------------------------- フォーマット関連
 
 ;; タブにスペースを使用する
@@ -345,11 +336,6 @@
                           :background "#002b37")
       )
 
-;; ------------------------------------------- minimap
-(use-package minimap
-  :config
-  )
-
 ;; ------------------------------------------- undo-tree
 (use-package undo-tree
   :diminish undo-tree-mode
@@ -361,79 +347,6 @@
 (use-package neotree
   :config
   (bind-key [f8] 'neotree-toggle))
-
-
-;; ------------------------------------------- helm
-(use-package helm)
-
-(use-package helm-config
-  :diminish helm-mode
-  :config
-  (bind-key "C-;" 'helm-for-files)
-  (bind-key "C-u C-u" 'helm-command-prefix)
-  (bind-key "<tab>" 'helm-execute-persistent-action helm-map)
-  (bind-key "C-i" 'helm-execute-persistent-action helm-map)
-  (bind-key "C-z" 'helm-select-action helm-map)
-  (bind-key "C-u C-u C-b" 'helm-mini)
-  (bind-key "C-u C-u o" 'helm-occur)
-  (bind-key "C-x C-b" 'helm-buffers-list)
-
-  ;; デフォルトキーバインドの置換え
-  (bind-key "M-x" 'helm-M-x)
-  (setq helm-M-x-fuzzy-match t)
-
-  (bind-key "M-y" 'helm-show-kill-ring)
-
-  (bind-key "C-x C-f" 'helm-find-files)
-
-  ;; 自動補完を無効化
-  ;; (custom-set-variables '(helm-ff-auto-update-initial-value nil))
-  (setq helm-ff-auto-update-initial-value nil)
-
-  (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
-  (add-to-list 'helm-completing-read-handlers-alist '(find-file-at-point . nil))
-  (add-to-list 'helm-completing-read-handlers-alist '(write-file . nil))
-  (add-to-list 'helm-completing-read-handlers-alist '(helm-c-yas-complete . nil))
-  (add-to-list 'helm-completing-read-handlers-alist '(dired-do-copy . nil))
-  (add-to-list 'helm-completing-read-handlers-alist '(dired-do-rename . nil))
-  (add-to-list 'helm-completing-read-handlers-alist '(dired-create-directory . nil))
-
-  ;; . と .. を候補から除外
-  (advice-add 'helm-ff-filter-candidate-one-by-one
-              :around (lambda (fcn file)
-                        (unless (string-match "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)
-                                              (funcall fcn file))))
-  (when (executable-find "curl")
-    (setq helm-google-suggest-use-curl-p t))
-
-  (helm-mode 1)
-  )
-
-;; ---------------------------------------- helm-gtags
-;; C-jをタグジャンプのためのプレフィックスにする
-(global-unset-key "\C-j")
-(use-package helm-gtags
-  :config
-  (add-hook 'helm-gtags-mode-hook
-            '(lambda ()
-               ;; 入力されたタグの定義元へジャンプ
-               (local-set-key (kbd "C-j C-t") 'helm-gtags-find-tag)
-
-               ;; 入力タグを参照する場所へジャンプ
-               (local-set-key (kbd "C-j C-r") 'helm-gtags-find-rtag)
-
-               ;; 入力シンボルを参照する場所へジャンプ
-               (local-set-key (kbd "C-j C-s") 'helm-gtags-find-symbol)
-
-               ;; タグ一覧からタグを選択し、その定義元へジャンプする
-               (local-set-key (kbd "C-j C-l") 'helm-gtags-select)
-
-               ;; ジャンプ前の場所に戻る
-               (local-set-key (kbd "C-j C-j") 'helm-gtags-pop-stack)))
-
-  (add-hook 'php-mode-hook 'helm-gtags-mode)
-  (add-hook 'c-mode-hook 'helm-gtags-mode)
-  )
 
 ;; ---------------------------------------- web-mode
 (use-package web-mode
@@ -475,41 +388,6 @@
   ;; (setq web-mode-asp-offset	2)
   )
 
-;; ---------------------------------------- flycheck
-(use-package flycheck
-  :config
-  (global-flycheck-mode)
-
-  (bind-key "C-c n" 'flycheck-next-error)
-  (bind-key "C-c p" 'flycheck-previous-error)
-  (bind-key "C-c d" 'flycheck-list-error)
-  )
-
-;; ---------------------------------------- flycheck-phpstan
-(defun my-php-mode-hook ()
-  "My PHP-mode hook."
-  (require 'flycheck-phpstan)
-  (flycheck-mode t)
-  (flycheck-select-checker 'phpstan)
-  (setq php-mode-coding-style 'psr2
-        c-basic-offset 4))
-(add-hook 'php-mode-hook 'my-php-mode-hook)
-
-;; ---------------------------------------- phpcbf
-(require 'phpcbf)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (darktooth-theme magit bind-key)))
- '(phpcbf-executable "/usr/bin/phpcbf")
- '(phpcbf-standard "PSR2")
- '(safe-local-variable-values (quote ((php-project-root . auto)))))
-
-;; Auto format on save.
-(add-hook 'php-mode-hook 'phpcbf-enable-on-save)
 ;; ---------------------------------------- magit
 (use-package magit
   :config
@@ -522,6 +400,7 @@
     (setq magit-git-executable "C:/Program Files/Git/bin/git.exe")
     )
   )
+
 ;; ---------------------------------------- git-gutter-mode
 (unless window-system
   (use-package git-gutter
@@ -606,9 +485,12 @@
                       :inherit 'mode-line)
   (powerline-default-theme)
   )
-
-
-
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (markdown-mode counsel clues-theme bind-key))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
