@@ -44,9 +44,12 @@
 (el-get-bundle git-gutter-fringe)
 (el-get-bundle minimap)
 (el-get-bundle highlight-symbol)
-(el-get-bundle powerline)
 (el-get-bundle magit)
 (el-get-bundle hide-mode-line)
+;; windows環境だと、gzipのインストールが必要
+;; c:/Users/rs060/Documents/programs/emacs/bin/
+;; pathに、program files(x86)\GnuWin32\bin を追加するのを忘れずに
+(el-get-bundle doom-modeline)
 
 (when (eq system-type 'gnu/linux)
   ;; make が必要となるため、Windowsだとめんどくさいため一旦OFFに
@@ -54,6 +57,7 @@
 )
 
 (el-get-bundle doom-themes)
+(el-get-bundle domtronn/all-the-icons)
 
 ;; ---------------------------------------- use-package
 ;; use-package がなければ、ロードしない
@@ -436,73 +440,25 @@
   (add-hook 'prog-mode-hook 'highlight-symbol-mode) ;; プログラミング言語の時自動で on
   ;;(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode) ;; M-p/M-nでシンボル間を移動
   )
+;; ---------------------------------------- all-the-icons
+;; all-the-iconsを利用するにはまず
+;; M-x all-the-icons-install-fonts によってダウンロードされる
+;; プロプライエタリなアイコンフォントをOSにインストールしなければならない。
+(use-package all-the-icons)
 
-;; ---------------------------------------- powerline
-(use-package powerline
+;; ---------------------------------------- doom-modeline
+(use-package doom-modeline
+  :custom
+  (doom-modeline-buffer-file-name-style 'truncate-with-project)
+  (doom-modeline-icon t)
+  (doom-modeline-major-mode-icon nil)
+  (doom-modeline-minor-modes nil)
+  :hook
+  (after-init . doom-modeline-mode)
   :config
-  (defconst fgcolor1-active "#382048")
-  (defconst bgcolor1-active "#F0E0D0")
-  (defconst fgcolor2-active "#D0C0A0")
-  (defconst bgcolor2-active "#382848")
-  (defconst fgcolor3-active "#D0C0A0")
-  (defconst bgcolor3-active "#201038")
-  (defconst fgcolor1-inactive "#382048")
-  (defconst bgcolor1-inactive "#A0A080")
-  (defconst fgcolor2-inactive "#A0A080")
-  (defconst bgcolor2-inactive "#201830")
-  (defconst fgcolor3-inactive "#A0A080")
-  (defconst bgcolor3-inactive "#100818")
-
-  (set-face-attribute 'mode-line nil
-                      :foreground fgcolor1-active
-                      :background bgcolor1-active
-                      :bold t
-                      :box nil)
-
-  (set-face-attribute 'powerline-active1 nil
-                      :foreground fgcolor2-active
-                      :background bgcolor2-active
-                      :bold t
-                      :box nil
-                      :inherit 'mode-line)
-
-  (set-face-attribute 'powerline-active2 nil
-                      :foreground fgcolor3-active
-                      :background bgcolor3-active
-                      :bold t
-                      :box nil
-                      :inherit 'mode-line)
-
-  (set-face-attribute 'mode-line-inactive nil
-                      :foreground fgcolor1-inactive
-                      :background bgcolor1-inactive
-                      :bold t
-                      :box nil)
-
-  (set-face-attribute 'powerline-inactive1 nil
-                      :foreground fgcolor2-inactive
-                      :background bgcolor2-inactive
-                      :bold t
-                      :box nil
-                      :inherit 'mode-line)
-
-  (set-face-attribute 'powerline-inactive2 nil
-                      :foreground fgcolor3-inactive
-                      :background bgcolor3-inactive
-                      :bold t
-                      :box nil
-                      :inherit 'mode-line)
-  (powerline-default-theme)
+  (line-number-mode 0)
+  (column-number-mode 0)
+  (doom-modeline-def-modeline 'main
+   '(bar window-number matches buffer-info remote-host buffer-position parrot selection-info)
+   '(misc-info persp-name lsp github debug minor-modes input-method major-mode process vcs checker))
   )
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (markdown-mode counsel clues-theme bind-key))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
