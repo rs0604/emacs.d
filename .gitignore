@@ -1,10 +1,2 @@
-ac-comphist.dat
-auto-save-list
-el-get
-!./el-get/yasnippet/snippets/
-elpa
-elisp
-eshell
-bookmarks
-kkcrc
-recentf
+*
+!init.el
