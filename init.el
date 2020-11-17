@@ -45,6 +45,7 @@
 (el-get-bundle minimap)
 (el-get-bundle highlight-symbol)
 (el-get-bundle magit)
+(el-get-bundle sabof/org-bullets)
 (el-get-bundle hide-mode-line)
 ;; windows環境だと、gzipのインストールが必要
 ;; c:/Users/rs060/Documents/programs/emacs/bin/
@@ -300,6 +301,11 @@
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
 (setq hl-line-face 'underline)
 (setq calendar-holidays nil) ;; 不要なら削除
+
+;; ------------------------------------------- org-bullets
+(use-package org-bullets
+      :custom (org-bullets-bullet-list '("" "󿢣" "󿢦" "󿢩" "󿢬" "󿢯" "󿢲" "󿢵" "󿢸" "󿢻"))
+      :hook (org-mode . org-bullets-mode))
 
 ;; ------------------------------------------- markdown-mode
 (use-package markdown-mode
