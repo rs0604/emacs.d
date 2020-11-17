@@ -93,6 +93,9 @@
   (scroll-bar-mode 0)
   )
 
+;; ウィンドウ境界に余白をつける
+(set-frame-parameter (selected-frame) 'internal-border-width 12)
+
 ;; ファイルサイズの表示
 (size-indication-mode t)
 
@@ -153,6 +156,9 @@
 ;; 左右２分割したとき、下の行が折り返しなし&行末が揃うように調整する
 ;; AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM  NN  OO  PP  QQ  RR  SS  TT
 ;; あ　い　う　え　お　か　き　く　け　こ  さ　し　す　せ　そ　た　ち　つ　て　と
+
+;; 行間の設定
+(setq-default line-spacing 3)
 
 ;; OSのクリップボードと共有する
 (setq select-enable-clipboard t)
