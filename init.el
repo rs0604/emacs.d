@@ -113,38 +113,39 @@
   (doom-themes-org-config))
 
 ;; フォントの設定
+;; https://www.nerdfonts.com/font-downloads
 (set-face-attribute 'default nil
-                    :family "monospace"
+                    :family "Cica"
                     :height 90)
 
 ;; 日本語フォントの設定
 (when window-system
   (when (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil
-                        :family "Verily Serif Mono"
+                        :family "Cica"
                         :height 90)
 
     (set-face-attribute 'mode-line nil
-                        :family "Verily Serif Mono"
+                        :family "Cica"
                         :height 90)
 
     (set-fontset-font (frame-parameter  nil 'font)
                       'japanese-jisx0208
-                      (font-spec :family "VL ゴシック"
+                      (font-spec :family "Cica"
                                  :size 14)))
 
   (when (eq system-type 'windows-nt)
     (set-face-attribute 'default nil
-                        :family "Verily Serif Mono"
-                        :height 90)
+                        :family "Cica"
+                        :height 100)
 
     (set-face-attribute 'mode-line nil
-                        :family "Garamond"
+                        :family "Cica"
                         :height 100)
 
     (set-fontset-font (frame-parameter  nil 'font)
                       'japanese-jisx0208
-                      (font-spec :family "Meiryo"
+                      (font-spec :family "Cica"
                                  :size 14)))
   )
 
