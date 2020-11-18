@@ -120,23 +120,23 @@
 ;; https://www.nerdfonts.com/font-downloads
 (set-face-attribute 'default nil
                     :family "Cica"
-                    :height 90)
+                    :height 120)
 
 ;; 日本語フォントの設定
 (when window-system
   (when (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil
                         :family "Cica"
-                        :height 90)
+                        :height 120)
 
     (set-face-attribute 'mode-line nil
                         :family "Cica"
-                        :height 90)
+                        :height 120)
 
     (set-fontset-font (frame-parameter  nil 'font)
                       'japanese-jisx0208
                       (font-spec :family "Cica"
-                                 :size 14)))
+                                 :size 17)))
 
   (when (eq system-type 'windows-nt)
     (set-face-attribute 'default nil
@@ -308,6 +308,7 @@
 (setq hl-line-face 'underline)
 (setq calendar-holidays nil) ;; 不要なら削除
 
+(global-set-key (kbd "C-c a") 'org-agenda)
 ;; ------------------------------------------- org-bullets
 (use-package org-bullets
       :custom (org-bullets-bullet-list '("" "󿢣" "󿢦" "󿢩" "󿢬" "󿢯" "󿢲" "󿢵" "󿢸" "󿢻"))
@@ -446,3 +447,15 @@
    '(bar window-number matches buffer-info remote-host buffer-position parrot selection-info)
    '(misc-info persp-name lsp github debug minor-modes input-method major-mode process vcs checker))
   )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (markdown-mode hide-mode-line bind-key counsel))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
