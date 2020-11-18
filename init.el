@@ -295,6 +295,33 @@
   :hook
   ((neotree-mode imenu-list-minor-mode minimap-mode) . hide-mode-line-mode))
 
+;; ------------------------------------------- ivy
+;; コマンド補完機能
+(use-package ivy
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  ;; minibufferのサイズを拡大する
+  (setq ivy-height 15)
+  (setq ivy-extra-directories nil)
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-plus)))
+  )
+
+;; ------------------------------------------- counsel
+;; ivyを使って絞り込み検索を行う
+;; 各種コマンドの補完にcounselを利用する
+(global-set-key (kbd "M-x") 'counsel-M-x)
+;; ファイル検索をcounsel利用
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(setq counsel-find-file-ignore-regexp (regexp-opt '("./" "../")))
+
+;; ------------------------------------------- swiper
+;; ivyを使ったisearch拡張
+(global-set-key "\C-s" 'swiper)
+(setq swiper-include-line-number-in-search t)
+
 ;; ------------------------------------------- org-mode
 ;; org-directoryはDropBox内のファイルを指定
 (when (eq system-type 'windows-nt)
