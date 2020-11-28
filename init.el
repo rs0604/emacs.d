@@ -39,6 +39,7 @@
 (el-get-bundle web-mode)
 (el-get-bundle neotree)
 (el-get-bundle undo-tree)
+(el-get-bundle quickrun)
 (el-get-bundle visual-regexp)
 (el-get-bundle git-gutter)
 (el-get-bundle git-gutter-fringe)
@@ -246,12 +247,6 @@
 
 ;; 正規表現置換えをわかりやすく
 (bind-key "M-%" 'vr/query-replace)
-
-;; F5キーでPHPデバッグログ挿入（yasnippet設定までの仮
-(defun insert-php-debuglog()
-  (interactive)
-  (insert "error_log(print_r($data,true),'3','/vagrant/public_html/application/logs/debug.log');"))
-(bind-key "<f5>" 'insert-php-debuglog)
 
 ;; F6キーで日付挿入
 (defun insert-current-time()
@@ -474,6 +469,19 @@
    '(bar window-number matches buffer-info remote-host buffer-position parrot selection-info)
    '(misc-info persp-name lsp github debug minor-modes input-method major-mode process vcs checker))
   )
+
+;; ------------------------------------------- quickrun
+(use-package quickrun
+  :config
+  (global-set-key (kbd "<f5>") 'quickrun)
+  (global-set-key (kbd "C-<f5>") 'quickrun-with-arg)
+  (global-set-key (kbd "M-<f5>") 'quickrun-compile-only)
+  ;; Pythonソースコードは python3 コマンドで実行する
+  (quickrun-add-command "python"
+    '((:command . "python3"))
+    :override t)
+  )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
