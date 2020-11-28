@@ -56,6 +56,12 @@
 (when (eq system-type 'gnu/linux)
   ;; make が必要となるため、Windowsだとめんどくさいため一旦OFFに
   (el-get-bundle haskell-mode)
+  ;; plantuml コマンドの導入が前提。windows未検証
+  (el-get-bundle plantuml-mode
+    :type github
+    :name plantuml-mode
+    :pkgname "skuro/plantuml-mode"
+    :branch "master")
 )
 
 (el-get-bundle doom-themes)
@@ -331,6 +337,17 @@
 (setq calendar-holidays nil) ;; 不要なら削除
 
 (global-set-key (kbd "C-c a") 'org-agenda)
+
+;; plantumlとの統合
+(when (eq system-type 'gnu/linux)
+  (setq org-plantuml-jar-path (expand-file-name "/usr/share/plantuml/plantuml.jar"))
+  ;;(add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+  (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+  )
+
+;; ファイルオープン時にインラインイメージ画像の表示
+(setq org-startup-with-inline-images t)
+
 ;; ------------------------------------------- org-bullets
 (use-package org-bullets
       :custom (org-bullets-bullet-list '("" "󿢣" "󿢦" "󿢩" "󿢬" "󿢯" "󿢲" "󿢵" "󿢸" "󿢻"))
@@ -480,6 +497,16 @@
   (quickrun-add-command "python"
     '((:command . "python3"))
     :override t)
+  )
+
+;; ------------------------------------------- plantuml-mode
+(use-package plantuml-mode
+  :config
+  (setq plantuml-executable-path "plantuml")
+  (setq plantuml-default-exec-mode 'executable)
+  ;; (setq plantuml-output-type "svg")
+  (setq plantuml-options "-charset UTF-8")
+  (add-to-list 'auto-mode-alist '("\\.pu\\'" . plantuml-mode))
   )
 
 (custom-set-variables
