@@ -111,14 +111,14 @@
 
 ;; テーマのロード
 (when window-system
-  (set-frame-parameter nil 'alpha 90)
+  (set-frame-parameter nil 'alpha 85)
   )
 
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (load-theme 'doom-gruvbox t)
+  (load-theme 'doom-outrun-electric t)
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   (doom-themes-org-config))
@@ -143,7 +143,7 @@
     (set-fontset-font (frame-parameter  nil 'font)
                       'japanese-jisx0208
                       (font-spec :family "Cica"
-                                 :size 17)))
+                                 :size 16)))
 
   (when (eq system-type 'windows-nt)
     (set-face-attribute 'default nil
